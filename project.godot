@@ -13,14 +13,32 @@ _global_script_classes=[ {
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://git_api.gdns"
+}, {
+"base": "ResourceFormatLoader",
+"class": "HTerrainDataLoader",
+"language": "GDScript",
+"path": "res://addons/zylann.hterrain/hterrain_resource_loader.gd"
+}, {
+"base": "ResourceFormatSaver",
+"class": "HTerrainDataSaver",
+"language": "GDScript",
+"path": "res://addons/zylann.hterrain/hterrain_resource_saver.gd"
+}, {
+"base": "RigidBody",
+"class": "VR_Interactable_Rigidbody",
+"language": "GDScript",
+"path": "res://scripts/VR_Interactable_Rigidbody.gd"
 } ]
 _global_script_class_icons={
-"GitAPI": ""
+"GitAPI": "",
+"HTerrainDataLoader": "",
+"HTerrainDataSaver": "",
+"VR_Interactable_Rigidbody": ""
 }
 
 [application]
 
-config/name="Godot-Wild-Jam_Revolutionary"
+config/name="Godot-Wild-Jam_Revolution"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
