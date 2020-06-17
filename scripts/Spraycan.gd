@@ -2,7 +2,6 @@ extends VR_Interactable_Rigidbody
 
 var spray_mesh
 var spray_sound
-var raycast
 var decal_projector = preload("res://scenes/ProjectedDecal.tscn")
 onready var fire_point = get_node("SpraycanMesh/SpraycanTop/SprayTrigger/Spray/Position3D")
 
@@ -10,7 +9,7 @@ onready var fire_point = get_node("SpraycanMesh/SpraycanTop/SprayTrigger/Spray/P
 func _ready():
 	spray_mesh = get_node("SpraycanMesh/SpraycanTop/SprayTrigger/Spray")
 	spray_mesh.visible = false
-	#spray_sound = get_node("AudioStreamPlayer3D")
+	spray_sound = get_node("SpraycanMesh/SpraycanTop/SprayTrigger/AudioStreamPlayer3D")
 
 
 # Ensure this runs only when picked up.
@@ -21,6 +20,7 @@ func _process(delta):
 		else:
 			if spray_mesh.visible:
 				spray_mesh.visible = false
+				spray_sound.stop()
 
 
 func spray():
@@ -32,4 +32,5 @@ func spray():
 	spray_mesh.visible = true
 	# Give user feedback
 	controller.rumble = 0.05
-	#spray_sound.play()
+	if !spray_sound.is_playing():
+		spray_sound.play()
