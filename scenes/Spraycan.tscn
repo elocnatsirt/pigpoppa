@@ -1,0 +1,229 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Assets/teleport.tres" type="CylinderMesh" id=1]
+[ext_resource path="res://Assets/teleport_spike.tres" type="CylinderMesh" id=2]
+[ext_resource path="res://scripts/Spraycan.gd" type="Script" id=3]
+
+[sub_resource type="CylinderShape" id=1]
+
+[sub_resource type="CylinderMesh" id=2]
+
+[sub_resource type="Shader" id=3]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : hint_color;
+uniform sampler2D texture_albedo : hint_albedo;
+uniform float specular;
+uniform float metallic;
+uniform float roughness : hint_range(0,1);
+uniform float point_size : hint_range(0,128);
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	METALLIC = metallic;
+	ROUGHNESS = roughness;
+	SPECULAR = specular;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/albedo = Color( 1, 0.247059, 0, 1 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.0
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+
+[sub_resource type="CylinderMesh" id=5]
+
+[sub_resource type="Shader" id=6]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : hint_color;
+uniform sampler2D texture_albedo : hint_albedo;
+uniform float specular;
+uniform float metallic;
+uniform float roughness : hint_range(0,1);
+uniform float point_size : hint_range(0,128);
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	METALLIC = metallic;
+	ROUGHNESS = roughness;
+	SPECULAR = specular;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+shader_param/albedo = Color( 0.513726, 0.458824, 0.411765, 1 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.0
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+
+[sub_resource type="SpatialMaterial" id=8]
+flags_transparent = true
+albedo_color = Color( 0.94902, 0.937255, 0.913725, 0.305882 )
+
+[sub_resource type="Shader" id=9]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : hint_color;
+uniform sampler2D texture_albedo : hint_albedo;
+uniform float specular;
+uniform float metallic;
+uniform float roughness : hint_range(0,1);
+uniform float point_size : hint_range(0,128);
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	METALLIC = metallic;
+	ROUGHNESS = roughness;
+	SPECULAR = specular;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
+shader_param/albedo = Color( 1, 0.839216, 0.223529, 0.592157 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.0
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+
+[sub_resource type="CylinderMesh" id=11]
+
+[sub_resource type="Shader" id=12]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : hint_color;
+uniform sampler2D texture_albedo : hint_albedo;
+uniform float specular;
+uniform float metallic;
+uniform float roughness : hint_range(0,1);
+uniform float point_size : hint_range(0,128);
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	METALLIC = metallic;
+	ROUGHNESS = roughness;
+	SPECULAR = specular;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=13]
+shader = SubResource( 12 )
+shader_param/albedo = Color( 0.94902, 0.937255, 0.913725, 1 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.0
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+
+[node name="Spraycan" type="RigidBody"]
+script = ExtResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.075, 0, 0, 0, 0.155, 0, 0, 0, 0.075, 0, 0.0295449, 0 )
+shape = SubResource( 1 )
+
+[node name="SpraycanMesh" type="MeshInstance" parent="."]
+transform = Transform( 0.075, 0, 0, 0, 0.125, 0, 0, 0, 0.075, 0, 0, 0 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 4 )
+
+[node name="SpraycanTop" type="MeshInstance" parent="SpraycanMesh"]
+transform = Transform( 2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 1.09031, 0 )
+mesh = ExtResource( 1 )
+material/0 = null
+
+[node name="SprayTrigger" type="MeshInstance" parent="SpraycanMesh/SpraycanTop"]
+transform = Transform( 0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.075, 0, 0.322882, 0 )
+mesh = SubResource( 5 )
+material/0 = SubResource( 7 )
+
+[node name="Spray" type="MeshInstance" parent="SpraycanMesh/SpraycanTop/SprayTrigger"]
+transform = Transform( 43.2946, 0, 0, 0, -7.33045e-06, -48.0745, 0, 34.7506, -6.04921e-06, 0, 0, -14.6869 )
+material_override = SubResource( 8 )
+mesh = ExtResource( 2 )
+material/0 = SubResource( 10 )
+
+[node name="Position3D" type="Position3D" parent="SpraycanMesh/SpraycanTop/SprayTrigger/Spray"]
+transform = Transform( 1, 0, 0, 0, -1.51547e-07, -1.08586, 0, 0.930191, -1.76908e-07, 0, -0.400698, 5.96046e-08 )
+
+[node name="TriggerStem" type="MeshInstance" parent="SpraycanMesh/SpraycanTop/SprayTrigger"]
+transform = Transform( 0.666667, 0, 0, 0, 1.33333, 0, 0, 0, 0.666667, 0, -1.71784, 0 )
+mesh = SubResource( 11 )
+material/0 = SubResource( 13 )

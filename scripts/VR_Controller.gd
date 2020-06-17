@@ -49,6 +49,8 @@ var teleport_button_down
 # (The Raycast node also has a 'laser sight' MeshInstance for aiming the raycast)
 var teleport_raycast
 
+var trigger_down
+
 # A constant to define the dead zone for both the trackpad and the joystick.
 # See (http://www.third-helix.com/2013/04/12/doing-thumbstick-dead-zones-right.html)
 # for more information on what dead zones are, and how we are using them in this project.
@@ -86,6 +88,9 @@ func _ready():
 	# Make the teleport meshes invisible.
 	teleport_mesh.visible = false
 	teleport_raycast.visible = false
+	
+	# Set trigger_down var
+	trigger_down = false
 	
 	# Get the grab area node, the grab raycast node, and the grab position node. Assign these nodes to
 	# their respective variables.
@@ -159,6 +164,11 @@ func _physics_process(delta):
 	
 	# Call the _physics_process_directional_movement function to the player can move using the trackpad/joystick. 
 	_physics_process_directional_movement(delta);
+	
+	if is_button_pressed(15):
+		trigger_down = true
+	else:
+		trigger_down = false
 
 
 # This function does a rough calculate of the VR controller's velocity by calculating the relative changes

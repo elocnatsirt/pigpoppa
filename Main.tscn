@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/InitVR.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Movement_Vignette.gd" type="Script" id=2]
@@ -7,57 +7,14 @@
 [ext_resource path="res://scenes/Right_Controller.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/teleport.tres" type="CylinderMesh" id=6]
 [ext_resource path="res://Assets/teleport_spike.tres" type="CylinderMesh" id=7]
+[ext_resource path="res://scenes/Spraycan.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Environment" id=1]
 background_mode = 1
 background_color = Color( 0, 0.654902, 0.882353, 1 )
 ambient_light_color = Color( 0.94902, 0.937255, 0.913725, 1 )
 
-[sub_resource type="CubeMesh" id=2]
-
-[sub_resource type="Shader" id=3]
-code = "shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
-uniform vec4 albedo : hint_color;
-uniform sampler2D texture_albedo : hint_albedo;
-uniform float specular;
-uniform float metallic;
-uniform float roughness : hint_range(0,1);
-uniform float point_size : hint_range(0,128);
-uniform vec3 uv1_scale;
-uniform vec3 uv1_offset;
-uniform vec3 uv2_scale;
-uniform vec3 uv2_offset;
-
-
-void vertex() {
-	UV=UV*uv1_scale.xy+uv1_offset.xy;
-}
-
-
-
-
-void fragment() {
-	vec2 base_uv = UV;
-	vec4 albedo_tex = texture(texture_albedo,base_uv);
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
-	METALLIC = metallic;
-	ROUGHNESS = roughness;
-	SPECULAR = specular;
-}
-"
-
-[sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 3 )
-shader_param/albedo = Color( 0.513726, 0.458824, 0.411765, 1 )
-shader_param/specular = 0.5
-shader_param/metallic = 0.0
-shader_param/roughness = 1.0
-shader_param/point_size = 1.0
-shader_param/uv1_scale = Vector3( 1, 1, 1 )
-shader_param/uv1_offset = Vector3( 0, 0, 0 )
-shader_param/uv2_scale = Vector3( 1, 1, 1 )
-shader_param/uv2_offset = Vector3( 0, 0, 0 )
+[sub_resource type="CubeMesh" id=4]
 
 [sub_resource type="Shader" id=5]
 code = "shader_type spatial;
@@ -102,6 +59,10 @@ shader_param/uv1_scale = Vector3( 1, 1, 1 )
 shader_param/uv1_offset = Vector3( 0, 0, 0 )
 shader_param/uv2_scale = Vector3( 1, 1, 1 )
 shader_param/uv2_offset = Vector3( 0, 0, 0 )
+
+[sub_resource type="PhysicsMaterial" id=2]
+
+[sub_resource type="BoxShape" id=3]
 
 [sub_resource type="PlaneMesh" id=7]
 
@@ -151,11 +112,9 @@ shader_param/uv2_offset = Vector3( 0, 0, 0 )
 
 [sub_resource type="BoxShape" id=10]
 
-[sub_resource type="PhysicsMaterial" id=11]
+[sub_resource type="BoxShape" id=11]
 
-[sub_resource type="CylinderMesh" id=12]
-
-[sub_resource type="Shader" id=13]
+[sub_resource type="Shader" id=12]
 code = "shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
 uniform vec4 albedo : hint_color;
@@ -187,9 +146,9 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=14]
-shader = SubResource( 13 )
-shader_param/albedo = Color( 0.945098, 0.0980392, 0.054902, 1 )
+[sub_resource type="ShaderMaterial" id=13]
+shader = SubResource( 12 )
+shader_param/albedo = Color( 0.513726, 0.458824, 0.411765, 1 )
 shader_param/specular = 0.5
 shader_param/metallic = 0.0
 shader_param/roughness = 1.0
@@ -198,8 +157,6 @@ shader_param/uv1_scale = Vector3( 1, 1, 1 )
 shader_param/uv1_offset = Vector3( 0, 0, 0 )
 shader_param/uv2_scale = Vector3( 1, 1, 1 )
 shader_param/uv2_offset = Vector3( 0, 0, 0 )
-
-[sub_resource type="CylinderShape" id=15]
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 1 )
@@ -221,36 +178,60 @@ script = ExtResource( 2 )
 
 [node name="Wall1" type="MeshInstance" parent="Level"]
 transform = Transform( 10, 0, 0, 0, 4, 0, 0, 0, 0.1, 0, 4, -10 )
-mesh = SubResource( 2 )
-material/0 = SubResource( 4 )
-
-[node name="Wall2" type="MeshInstance" parent="Level"]
-transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 1, 10 )
-mesh = SubResource( 2 )
+mesh = SubResource( 4 )
 material/0 = SubResource( 6 )
 
-[node name="StaticBody" type="StaticBody" parent="Level"]
+[node name="BigWallBody" type="StaticBody" parent="Level/Wall1"]
+transform = Transform( 0.1, 0, 0, 0, 0.25, 0, 0, 0, 10, 0, -1, 100 )
+physics_material_override = SubResource( 2 )
 
-[node name="Ground" type="MeshInstance" parent="Level/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Level/Wall1/BigWallBody"]
+transform = Transform( 10, 0, 0, 0, 4, 0, 0, 0, 0.1, 0, 4, -10 )
+shape = SubResource( 3 )
+
+[node name="GroundBody" type="StaticBody" parent="Level"]
+
+[node name="Ground" type="MeshInstance" parent="Level/GroundBody"]
 transform = Transform( 100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0 )
 mesh = SubResource( 7 )
 material/0 = SubResource( 9 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Level/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Level/GroundBody"]
 transform = Transform( 100, 0, 0, 0, 0.1, 0, 0, 0, 100, 0, 0, 0 )
 shape = SubResource( 10 )
 
-[node name="RigidBody" type="RigidBody" parent="."]
-transform = Transform( 0.05, 0, 0, 0, 0.125, 0, 0, 0, 0.05, 0.3347, 0.904008, -1.75407 )
-mass = 0.0255102
-physics_material_override = SubResource( 11 )
+[node name="SmallWallBody" type="StaticBody" parent="Level"]
 
-[node name="SpraycanPlaceholder" type="MeshInstance" parent="RigidBody"]
-mesh = SubResource( 12 )
-material/0 = SubResource( 14 )
+[node name="CollisionShape" type="CollisionShape" parent="Level/SmallWallBody"]
+transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 1, 10 )
+shape = SubResource( 11 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
-shape = SubResource( 15 )
+[node name="Wall2" type="MeshInstance" parent="Level/SmallWallBody"]
+transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 1, 10 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 13 )
+
+[node name="SmallWallBody2" type="StaticBody" parent="Level"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Level/SmallWallBody2"]
+transform = Transform( -1.62921e-06, 0, 0.1, 0, 1, 0, -10, 0, -1.62921e-08, 10, 1, 0 )
+shape = SubResource( 11 )
+
+[node name="Wall2" type="MeshInstance" parent="Level/SmallWallBody2"]
+transform = Transform( -1.62921e-06, 0, 0.1, 0, 1, 0, -10, 0, -1.62921e-08, 10, 1, 0 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 13 )
+
+[node name="SmallWallBody3" type="StaticBody" parent="Level"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Level/SmallWallBody3"]
+transform = Transform( -1.62921e-06, 0, 0.1, 0, 1, 0, -10, 0, -1.62921e-08, -10, 1, 0 )
+shape = SubResource( 11 )
+
+[node name="Wall2" type="MeshInstance" parent="Level/SmallWallBody3"]
+transform = Transform( -1.62921e-06, 0, 0.1, 0, 1, 0, -10, 0, -1.62921e-08, -10, 1, 0 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 13 )
 
 [node name="Teleport_Mesh" type="MeshInstance" parent="."]
 visible = false
@@ -260,3 +241,6 @@ material/0 = null
 [node name="MeshInstance" type="MeshInstance" parent="Teleport_Mesh"]
 mesh = ExtResource( 7 )
 material/0 = null
+
+[node name="Spraycan" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.591952, -2.42721 )
