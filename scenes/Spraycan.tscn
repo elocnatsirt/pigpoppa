@@ -222,7 +222,7 @@ mesh = ExtResource( 2 )
 material/0 = SubResource( 10 )
 
 [node name="Position3D" type="Position3D" parent="SpraycanMesh/SpraycanTop/SprayTrigger/Spray"]
-transform = Transform( 1, 0, 0, 0, -1.51547e-07, -1.08586, 0, 0.930191, -1.76908e-07, 0, -0.400698, 5.96046e-08 )
+transform = Transform( 1, 0, 0, 0, -1.51547e-07, -1.08586, 0, 0.930191, -1.76908e-07, 0, 0.394042, -5.96046e-08 )
 
 [node name="TriggerStem" type="MeshInstance" parent="SpraycanMesh/SpraycanTop/SprayTrigger"]
 transform = Transform( 0.666667, 0, 0, 0, 1.33333, 0, 0, 0, 0.666667, 0, -1.71784, 0 )
