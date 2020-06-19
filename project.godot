@@ -42,13 +42,16 @@ config/name="Godot-Wild-Jam_Revolution"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "zylann.hterrain" )
+
 [gdnative]
 
 singletons=[ "res://addons/godot-openvr/godot_openvr.gdnlib", "res://git_api.gdnlib" ]
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"
