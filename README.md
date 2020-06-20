@@ -11,3 +11,5 @@ Starter code/assets source: https://github.com/GodotVR/godot_openvr_fps
 Decal spray code source: https://github.com/Miziziziz/GodotProjectedDecals
 
 Low poly environment assets source: https://jprinsloo.itch.io/
+
+Pig model and animations source: https://opengameart.org/content/lowpoly-pig

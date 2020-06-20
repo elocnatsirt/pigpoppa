@@ -1,12 +1,22 @@
 extends VR_Interactable_Rigidbody
 
 var spray_mesh
+var can_mesh
 var spray_sound
 var decal_projector = preload("res://scenes/ProjectedDecal.tscn")
 onready var fire_point = get_node("SpraycanMesh/SpraycanTop/SprayTrigger/Spray/Position3D")
+var colors = ['white', 'pink', 'orange', 'yellow', 'blue', 'purple', 'green', 'grey', 'black']
 
+export var color = 'gold'
 
 func _ready():
+	print(color)
+	can_mesh = get_node("SpraycanMesh")
+	var can_mat = can_mesh.get_surface_material(0)
+	can_mat = can_mat.duplicate()
+	can_mat.albedo_color = Color(color)
+	can_mesh.set_surface_material(0, can_mat)
+	print(can_mat)
 	spray_mesh = get_node("SpraycanMesh/SpraycanTop/SprayTrigger/Spray")
 	spray_mesh.visible = false
 	spray_sound = get_node("SpraycanMesh/SpraycanTop/SprayTrigger/AudioStreamPlayer3D")
