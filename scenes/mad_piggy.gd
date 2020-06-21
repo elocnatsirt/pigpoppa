@@ -45,17 +45,25 @@ func find_player():
 	# If within player range, go towards player
 	var dir = ai_get_dir()
 	var distance = dir.dot(get_node("../ARVROrigin").transform.basis.z)
-	if distance < 10 && distance > 1.5:
-		stopped = false
-		change_anim('Pig_Running')
-		var motion = dir.normalized() * Vector3(-(speed), 0, -(speed))
-		translate(motion)
-	else:
-		stopped = true
-		change_anim('Pig_Idle')
-		if !cooldown:
+	look_at(get_node("../ARVROrigin").transform.origin, Vector3(0, 1, 0))
+	if !cooldown:
+		if distance < 10 && distance > 1.5:
+			stopped = false
+			change_anim('Pig_Running')
+			var motion = dir.normalized() * Vector3(-(speed), 0, -(speed))
+			translate(motion)
+		else:
 			if distance < 2:
 				attack_player()
+	else:
+		if !stopped:
+			stopped = true
+			change_anim('Pig_Idle')
+			# Subtract damage if this function is called (for now)
+			get_node("../ARVROrigin").health = (get_node("../ARVROrigin").health - 10)
+		else:
+			yield(get_tree().create_timer(1), "timeout")
+			cooldown = false
 
 var curr_pos
 
@@ -67,6 +75,7 @@ func attack_player():
 	# Y doesn't reset enemy correctly still...
 	var motion = dir.normalized() * Vector3(-(speed * 1.5), 0, -(speed * 1.5))
 	translate(motion)
-	# If hit successful deduct health and shake screen, else slide back?
+
 	yield(get_tree().create_timer(0.5), "timeout")
 	cooldown = true
+	# If hit successful deduct health and shake screen, else slide back?	

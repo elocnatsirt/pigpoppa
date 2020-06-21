@@ -66,6 +66,7 @@ albedo_color = Color( 0, 0.654902, 0.882353, 1 )
 
 [node name="mad_piggy" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54432, 0 )
+input_ray_pickable = false
 script = ExtResource( 2 )
 
 [node name="Armature" type="Spatial" parent="."]
@@ -149,7 +150,7 @@ skin = SubResource( 2 )
 material/0 = SubResource( 3 )
 
 [node name="Sphere_Target_Root" parent="." instance=ExtResource( 3 )]
-transform = Transform( 10, 0, 0, 0, 20, 0, 0, 0, 13, 0, 3.98047, -0.0346892 )
+transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 15, 0, 3.98047, -0.0346892 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Pig_Idle"
@@ -157,11 +158,11 @@ anims/Pig_Idle = ExtResource( 6 )
 anims/Pig_Running = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 3, 0, 0, 0, -1.31134e-07, -3.5, 0, 3, -1.5299e-07, 0, 3.88412, 0 )
+transform = Transform( 2.71434, 0, 0, 0, -9.66341e-08, -2.57919, 0, 2.60704, -1.3295e-07, 0, 3.88412, 0 )
 shape = SubResource( 4 )
 
 [node name="Hat" type="MeshInstance" parent="."]
-transform = Transform( -0.01, 3.25841e-09, 5.30863e-16, 0, -1.62921e-09, 0.01, 3.25841e-09, 0.01, 1.62921e-09, 0, 7.86359, -0.869188 )
+transform = Transform( -0.00732814, 2.38781e-09, 3.89024e-16, 0, -1.43144e-09, 0.00878613, 2.76022e-09, 0.00847107, 1.38012e-09, -0.0515723, 8.35275, -0.734526 )
 mesh = ExtResource( 7 )
 material/0 = SubResource( 5 )
 

@@ -24,6 +24,7 @@ shader_param/vignette = ExtResource( 1 )
 material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+color = Color( 0.94902, 0.937255, 0.913725, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

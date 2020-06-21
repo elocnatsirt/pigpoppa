@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Urchins.ogg-4ee36e40b569fcc641416b4a0502d230.oggstr"
+
+[deps]
+
+source_file="res://Audio/Urchins.ogg"
+dest_files=[ "res://.import/Urchins.ogg-4ee36e40b569fcc641416b4a0502d230.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

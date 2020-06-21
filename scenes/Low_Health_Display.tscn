@@ -20,7 +20,7 @@ shader = SubResource( 1 )
 shader_param/vignette_strength = 0.6
 shader_param/vignette = ExtResource( 1 )
 
-[node name="Movement_Vignette" type="ColorRect"]
+[node name="Blood_Vingette" type="ColorRect"]
 material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0

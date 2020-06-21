@@ -1,5 +1,7 @@
 extends ARVRController
 
+var game_started = false
+
 # A variable to hold the VR controller's velocity.
 # This is only a rough approximation, though it works fairly well in most cases.
 var controller_velocity = Vector3(0,0,0)
@@ -9,6 +11,8 @@ var prior_controller_position = Vector3(0,0,0)
 # A Array to hold the last 30 calculated controller velocities. This is used to smooth velocity
 # calculates out over time.
 var prior_controller_velocities = []
+
+onready var audio = get_parent().get_node("AudioStreamPlayer3D")
 
 # A variable to hold a reference to the object the VR controller is currently holding, if the
 # VR controller is holding anything. If the VR controller is not holding anything, then the
@@ -299,16 +303,28 @@ func button_pressed(button_index):
 
 ## THESE SHOULD BE IN MENU SCRIPT
 func start_game():
+	get_parent().get_node("Player_Camera/Menu/SelectedSound").play()
+	if !game_started:
+		audio.stop()
+		var new_track = load("res://Audio/Trapper_Keeper.ogg")
+		audio.stream = new_track
+		yield(get_tree().create_timer(0.25), "timeout")
+		audio.play()
+		audio.max_distance = 10
+	game_started = true
 	grab_mode = "AREA"
 	self.get_parent().get_node("Player_Camera/Menu/CanGui").visible = false
 	self.get_parent().get_node("Player_Camera/Menu/MenuGui").visible = false
+	self.get_parent().get_node("Player_Camera/Menu/HealthGui").visible = false
 	teleport_raycast.visible = false
 	print("Game started")
 
 func open_options():
+	get_parent().get_node("Player_Camera/Menu/SelectedSound").play()
 	print("Opening options...")
 
 func restart_game():
+	get_parent().get_node("Player_Camera/Menu/SelectedSound").play()
 	print("Restarting game...")
 	var currentScene = get_tree().get_current_scene().get_filename()
 	get_tree().change_scene(currentScene)
@@ -316,7 +332,9 @@ func restart_game():
 	#get_tree().get_current_scene().call("_ready")
 
 func quit_game():
+	get_parent().get_node("Player_Camera/Menu/SelectedSound").play()
 	print("Quitting game...")
+	yield(get_tree().create_timer(1), "timeout")
 	get_tree().quit()
 
 # This function is called when the trigger button on the VR controller is pressed.
@@ -496,6 +514,7 @@ func _on_button_pressed_menu():
 		grab_mode = "RAYCAST"
 		self.get_parent().get_node("Player_Camera/Menu/CanGui").visible = true
 		self.get_parent().get_node("Player_Camera/Menu/MenuGui").visible = true
+		self.get_parent().get_node("Player_Camera/Menu/HealthGui").visible = true
 		teleport_raycast.visible = true
 	
 	# If the current grab mode is set to Raycast mode...
@@ -504,6 +523,7 @@ func _on_button_pressed_menu():
 		grab_mode = "AREA"
 		self.get_parent().get_node("Player_Camera/Menu/CanGui").visible = false
 		self.get_parent().get_node("Player_Camera/Menu/MenuGui").visible = false
+		self.get_parent().get_node("Player_Camera/Menu/HealthGui").visible = false
 		teleport_raycast.visible = false
 
 # This function is called when any of the VR buttons are released.

@@ -1,0 +1,154 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Assets/frame_mat.tres" type="Material" id=1]
+[ext_resource path="res://Assets/PoleBase.material" type="Material" id=2]
+[ext_resource path="res://scenes/Fire_Particle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/cloud3.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CylinderMesh" id=1]
+
+[sub_resource type="CylinderShape" id=2]
+
+[sub_resource type="CubeMesh" id=3]
+
+[sub_resource type="BoxShape" id=4]
+
+[node name="Grill" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 0.05, 0, 0, 0, 0.525, 0, 0, 0, 0.05, 0, 0.525, 0 )
+mesh = SubResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+transform = Transform( 0.4, 0, 0, 0, 0.01, 0, 0, 0, 0.3, 0, 1.05, 0 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance2/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="."]
+transform = Transform( -4.88762e-08, 0.01, -6.55671e-09, 0, -4.37114e-10, -0.15, -0.3, -1.62921e-09, 1.06822e-15, -0.39, 1.19, 0 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance3/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance5" type="MeshInstance" parent="."]
+transform = Transform( 0.4, 0, 0, 0, -4.37114e-10, -0.15, 0, 0.01, -6.55671e-09, 0, 1.19, -0.29 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance5"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance5/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance4" type="MeshInstance" parent="."]
+transform = Transform( -4.88762e-08, 0.01, -6.55671e-09, 0, -4.37114e-10, -0.15, -0.3, -1.62921e-09, 1.06822e-15, 0.39, 1.19, 0 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance4"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance4/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance6" type="MeshInstance" parent="."]
+transform = Transform( 0.4, 0, 0, 0, 0.01, 0, 0, 0, 0.05, 0, 1.25, 0.101229 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance6"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance6/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance7" type="MeshInstance" parent="."]
+transform = Transform( 0.4, 0, 2.70526e-05, 0, 0.01, 0, -0.000216421, 0, 0.05, 0, 1.25, 0.249 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance7"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance7/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance9" type="MeshInstance" parent="."]
+transform = Transform( 0.4, 0, 0, 0, 0.01, 0, 0, 0, 0.05, 0, 1.25, -0.196755 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance9"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance9/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance8" type="MeshInstance" parent="."]
+transform = Transform( 0.4, 0, 0, 0, 0.01, 0, 0, 0, 0.05, 0, 1.25, -0.0467469 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance8"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance8/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="Fire" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 1.24793, 0.0229433 )
+
+[node name="Cloud3" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.0199695, -0.0011025, -5.51005e-05, -0.00110358, 0.0199625, 0.000530735, 2.57399e-05, 0.000532966, -0.0199929, -0.032156, 1.05888, 0.112505 )
+
+[node name="Cloud12" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.0199695, -0.0011025, -5.51005e-05, -0.00110358, 0.0199625, 0.000530735, 2.57399e-05, 0.000532966, -0.0199929, -0.165531, 1.05888, 6.16908e-06 )
+
+[node name="Cloud4" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.0199695, -0.0011025, -5.51005e-05, -0.00110358, 0.0199625, 0.000530735, 2.57399e-05, 0.000532966, -0.0199929, 0.0319054, 1.06718, -0.0658565 )
+
+[node name="Cloud5" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.0149453, 0, 0.0132905, 0, 0.02, 0, -0.0132905, 0, 0.0149453, -0.0140371, 1.06513, 0.0148005 )
+
+[node name="Cloud6" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.0199695, -0.0011025, -5.51005e-05, -0.00110358, 0.0199625, 0.000530735, 2.57399e-05, 0.000532966, -0.0199929, -0.0754533, 1.06081, -0.0493098 )
+
+[node name="Cloud11" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.012644, 0.00110992, -0.0154563, -0.00110358, 0.0199625, 0.000530735, 0.0154568, 0.000517335, 0.0126815, -0.152041, 1.06081, 0.0894603 )
+
+[node name="Cloud13" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.0182734, 0.000795118, 0.00809006, -0.00110358, 0.0199625, 0.000530735, -0.00805378, -0.000931319, 0.018283, -0.171972, 1.06081, -0.131279 )
+
+[node name="Cloud14" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.0182734, 0.000795118, 0.00809006, -0.00110358, 0.0199625, 0.000530735, -0.00805378, -0.000931319, 0.018283, -0.0656012, 1.06081, -0.13831 )
+
+[node name="Cloud7" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.0149453, 0, 0.0132905, 0, 0.02, 0, -0.0132905, 0, 0.0149453, 0.0715664, 1.06513, 0.0759302 )
+
+[node name="Cloud16" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.00304695, 0, 0.0197665, 0, 0.02, 0, -0.0197665, 0, -0.00304695, 0.152029, 1.06513, 0.0758074 )
+
+[node name="Cloud15" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.0149453, 0, 0.0132905, 0, 0.02, 0, -0.0132905, 0, 0.0149453, 0.0715664, 1.06513, 0.0759302 )
+
+[node name="Cloud8" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.0149453, 0, 0.0132905, 0, 0.02, 0, -0.0132905, 0, 0.0149453, 0.030188, 1.06513, -0.108268 )
+
+[node name="Cloud9" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.0199695, -0.0011025, -5.51005e-05, -0.00110358, 0.0199625, 0.000530735, 2.57399e-05, 0.000532966, -0.0199929, 0.0903051, 1.06898, -0.0127688 )
+
+[node name="Cloud10" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.0149453, 0, 0.0132905, 0, 0.02, 0, -0.0132905, 0, 0.0149453, -0.0988138, 1.06513, 0.0148005 )
+
+[node name="Cloud17" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.0149453, 0, 0.0132905, 0, 0.02, 0, -0.0132905, 0, 0.0149453, 0.170257, 1.06513, -0.0716383 )
