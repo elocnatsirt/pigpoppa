@@ -22,6 +22,7 @@ func _ready():
 	# because we will only be using _physics_process for destroying this node when the destroyed_timer
 	# has reached the time (in seconds) defined in DESTROY_WAIT_TIME
 	set_physics_process(false)
+	get_node("Blood").visible = false
 
 
 func _physics_process(delta):
@@ -49,7 +50,7 @@ func damage(damage):
 		get_node("CollisionShape").disabled = true
 		# Make the non-broken sphere target mesh invisible.
 		get_node("Shpere_Target").visible = false
-		
+		get_node("Blood").visible = true
 		# Instance the RIGID_BODY_TARGET scene, add it as a child of this node, and set its
 		# global_transform variable to this target's global_transform so it has the same scale,
 		# rotation, and is at the same position.
@@ -67,4 +68,5 @@ func damage(damage):
 		get_node("AudioStreamPlayer").play()
 		# Tell the Game.gd script to remove a sphere from the sphere count.
 		get_tree().root.get_node("Game").remove_sphere()
-
+		yield(get_tree().create_timer(0.5), "timeout")
+		get_node("Blood").visible = false
