@@ -58,9 +58,9 @@ shader_param/uv1_offset = Vector3( 0, 0, 0 )
 shader_param/uv2_scale = Vector3( 1, 1, 1 )
 shader_param/uv2_offset = Vector3( 0, 0, 0 )
 
-[sub_resource type="CylinderMesh" id=10]
+[sub_resource type="CylinderMesh" id=7]
 
-[sub_resource type="Shader" id=11]
+[sub_resource type="Shader" id=8]
 code = "shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
 uniform vec4 albedo : hint_color;
@@ -92,8 +92,8 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=12]
-shader = SubResource( 11 )
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
 shader_param/albedo = Color( 0.94902, 0.937255, 0.913725, 1 )
 shader_param/specular = 0.5
 shader_param/metallic = 0.0
@@ -135,8 +135,8 @@ transform = Transform( 8.65892, 0, 0, 0, 3.63577e-06, 7.54686, 0, -8.9437, 4.522
 
 [node name="TriggerStem" type="MeshInstance" parent="SpraycanMesh/SpraycanTop/SprayTrigger"]
 transform = Transform( 0.666667, 0, 0, 0, 1.33333, 0, 0, 0, 0.666667, 0, -1.71784, 0 )
-mesh = SubResource( 10 )
-material/0 = SubResource( 12 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 9 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="SpraycanMesh/SpraycanTop/SprayTrigger"]
 stream = ExtResource( 4 )

@@ -70,6 +70,7 @@ var directional_movement = false
 
 
 func _ready():
+	
 	# Ignore the warnings the from the connect function calls.
 	# (We will not need the returned values for this tutorial)
 	# warning-ignore-all:return_value_discarded
@@ -87,7 +88,7 @@ func _ready():
 	teleport_button_down = false
 	# Make the teleport meshes invisible.
 	teleport_mesh.visible = false
-	teleport_raycast.visible = false
+	teleport_raycast.visible = true
 	
 	# Set trigger_down var
 	trigger_down = false
@@ -99,7 +100,7 @@ func _ready():
 	grab_pos_node = get_node("Grab_Pos")
 	
 	# Set the VR controller's initial grab mode to Area, and make the grab_raycast node invisible.
-	grab_mode = "AREA"
+	grab_mode = "RAYCAST"
 	grab_raycast.visible = false
 	
 	# Connect the Area signals for the Sleep_Area node to the sleep_area_entered and sleep_area_exited functions
@@ -296,27 +297,61 @@ func button_pressed(button_index):
 		_on_button_pressed_menu()
 
 
+## THESE SHOULD BE IN MENU SCRIPT
+func start_game():
+	grab_mode = "AREA"
+	self.get_parent().get_node("Player_Camera/Menu/CanGui").visible = false
+	self.get_parent().get_node("Player_Camera/Menu/MenuGui").visible = false
+	teleport_raycast.visible = false
+	print("Game started")
+
+func open_options():
+	print("Opening options...")
+
+func restart_game():
+	print("Restarting game...")
+	
+func quit_game():
+	print("Quitting game...")
+
 # This function is called when the trigger button on the VR controller is pressed.
 func _on_button_pressed_trigger():
-	# If the VR controller is NOT currently holding anything...
-	if held_object == null:
-		# Make sure the teleport mesh is currently invisible. We do this because if the teleport
-		# mesh is visible, then the other VR controller is trying to teleport. We do not want both
-		# controllers to allow teleportation at the same time, so we do this to work around it.
-		if teleport_mesh.visible == false:
-			# If the teleport mesh is not visible, then we can teleport with this VR controller.
-			#
-			# Set the teleport_button_down variable to true, make the teleport mesh visible, and
-			# make the teleport raycast mesh visible.
-			teleport_button_down = true
-			teleport_mesh.visible = true
-			teleport_raycast.visible = true
-	# If the VR controller IS currently holding something...
+	if get_node("../Player_Camera/Menu/MenuGui").visible:
+		# Force the raycast node to update so it collides with the latest version of the physics world.
+		teleport_raycast.force_raycast_update()
+		# If the raycast collided with something...
+		if teleport_raycast.is_colliding():
+			# Get the menu item the raycast collided with
+			var menu_item = teleport_raycast.get_collider()
+			match menu_item.get_parent().name:
+				'Start':
+					start_game()
+				'Options':
+					open_options()
+				'Restart':
+					restart_game()
+				'Quit':
+					quit_game()
 	else:
-		# If the object the VR controller is holding extends VR_Interactable_RigidBody...
-		if held_object is VR_Interactable_Rigidbody:
-			# Call the interact function so the object can do whatever it does when interacted with.
-			held_object.interact()
+		# If the VR controller is NOT currently holding anything...
+		if held_object == null:
+			# Make sure the teleport mesh is currently invisible. We do this because if the teleport
+			# mesh is visible, then the other VR controller is trying to teleport. We do not want both
+			# controllers to allow teleportation at the same time, so we do this to work around it.
+			if teleport_mesh.visible == false:
+				# If the teleport mesh is not visible, then we can teleport with this VR controller.
+				#
+				# Set the teleport_button_down variable to true, make the teleport mesh visible, and
+				# make the teleport raycast mesh visible.
+				teleport_button_down = true
+				teleport_mesh.visible = true
+				teleport_raycast.visible = true
+		# If the VR controller IS currently holding something...
+		else:
+			# If the object the VR controller is holding extends VR_Interactable_RigidBody...
+			if held_object is VR_Interactable_Rigidbody:
+				# Call the interact function so the object can do whatever it does when interacted with.
+				held_object.interact()
 
 
 # This function is called when the grab button on the VR controller is pressed.
@@ -454,17 +489,17 @@ func _on_button_pressed_menu():
 	if grab_mode == "AREA":
 		# Change the grab mode to Raycast mode.
 		grab_mode = "RAYCAST"
-		# If the VR controller is not holding anything, then make the grab_raycast mesh visible.
-		if held_object == null:
-			grab_raycast.visible = true
+		self.get_parent().get_node("Player_Camera/Menu/CanGui").visible = true
+		self.get_parent().get_node("Player_Camera/Menu/MenuGui").visible = true
+		teleport_raycast.visible = true
 	
 	# If the current grab mode is set to Raycast mode...
 	elif grab_mode == "RAYCAST":
 		# Change the grab mode to Area mode.
 		grab_mode = "AREA"
-		# Make the grab_raycast mesh invisible.
-		grab_raycast.visible = false
-
+		self.get_parent().get_node("Player_Camera/Menu/CanGui").visible = false
+		self.get_parent().get_node("Player_Camera/Menu/MenuGui").visible = false
+		teleport_raycast.visible = false
 
 # This function is called when any of the VR buttons are released.
 func button_released(button_index):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://scripts/InitVR.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Movement_Vignette.gd" type="Script" id=2]
@@ -23,12 +23,18 @@
 [ext_resource path="res://Assets/F2EFE9_mat.tres" type="Material" id=21]
 [ext_resource path="res://Assets/frame_mat.tres" type="Material" id=22]
 [ext_resource path="res://scenes/Statue.tscn" type="PackedScene" id=23]
+[ext_resource path="res://scenes/Menu.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/mad_piggy.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Assets/StreetLight.fbx" type="PackedScene" id=26]
+[ext_resource path="res://scenes/test_terrain.tscn" type="PackedScene" id=27]
 
 [sub_resource type="Environment" id=1]
 background_mode = 1
 background_color = Color( 0, 0.654902, 0.882353, 1 )
 ambient_light_color = Color( 0.94902, 0.937255, 0.913725, 1 )
+fog_color = Color( 0.513726, 0.458824, 0.411765, 1 )
+fog_sun_color = Color( 1, 0.901961, 0.701961, 1 )
+dof_blur_far_transition = 173.35
 
 [sub_resource type="CubeMesh" id=2]
 
@@ -117,16 +123,26 @@ albedo_color = Color( 0, 0.686275, 0.329412, 1 )
 
 [sub_resource type="CylinderMesh" id=21]
 
+[sub_resource type="SphereShape" id=22]
+
+[sub_resource type="PlaneMesh" id=23]
+
+[sub_resource type="SpatialMaterial" id=24]
+albedo_color = Color( 0, 0.654902, 0.882353, 1 )
+
 [node name="Game" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -200, 0, -200 )
 script = ExtResource( 1 )
 
 [node name="ARVROrigin" type="ARVROrigin" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 200.103, 0, 191.307 )
+transform = Transform( 0.6497, 0, 0.760191, 0, 1, 0, -0.760191, 0, 0.6497, 202.493, 0, 203.69 )
 
 [node name="Player_Camera" type="ARVRCamera" parent="ARVROrigin"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0 )
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 1.4, 0 )
 environment = SubResource( 1 )
+
+[node name="Menu" parent="ARVROrigin/Player_Camera" instance=ExtResource( 24 )]
+transform = Transform( 0.5, 1.19209e-07, -6.21725e-15, 0, -3.27835e-08, -0.5, -1.49012e-08, 0.75, -2.18557e-08, 0.0297254, -0.528468, -3.25781 )
 
 [node name="Left_Controller" parent="ARVROrigin" instance=ExtResource( 4 )]
 
@@ -339,6 +355,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.88294, 0.277983, -1.87312 )
 
 [node name="Ground" type="MeshInstance" parent="Level"]
 transform = Transform( 1000, 0, 0, 0, 1, 0, 0, 0, 1000, 0, 0.002, 0 )
+visible = false
 mesh = SubResource( 18 )
 material/0 = SubResource( 19 )
 
@@ -348,19 +365,31 @@ input_ray_pickable = false
 [node name="CollisionShape" type="CollisionShape" parent="Level/Ground/StaticBody"]
 transform = Transform( 1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 20 )
+disabled = true
 
 [node name="MeshInstance3" type="MeshInstance" parent="Level"]
 transform = Transform( 10, 0, 0, 0, 0.001, 0, 0, 0, 10, 0, 0.01, -20.25 )
 mesh = SubResource( 21 )
 material/0 = ExtResource( 21 )
 
+[node name="StaticBody" type="StaticBody" parent="Level/MeshInstance3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Level/MeshInstance3/StaticBody"]
+shape = SubResource( 22 )
+
 [node name="MeshInstance4" type="MeshInstance" parent="Level"]
 transform = Transform( 10, 0, 0, 0, 0.001, 0, 0, 0, 10, -57.4489, 0.01, -79.1586 )
 mesh = SubResource( 21 )
 material/0 = ExtResource( 21 )
 
+[node name="StaticBody2" type="StaticBody" parent="Level/MeshInstance4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.74489, 0, 5.89086 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Level/MeshInstance4/StaticBody2"]
+shape = SubResource( 22 )
+
 [node name="BigOrangeTree" parent="Level" instance=ExtResource( 13 )]
-transform = Transform( 0.966828, 0, -0.255429, 0, 1, 0, 0.255429, 0, 0.966828, -10.711, 3.7, -26.099 )
+transform = Transform( 0.961262, 0, 0.275637, 0, 1, 0, -0.275637, 0, 0.961262, -10.8953, 3.7, -26.6715 )
 
 [node name="BigOrangeTree14" parent="Level" instance=ExtResource( 13 )]
 transform = Transform( -0.397404, 0, 0.917644, 0, 1, 0, -0.917644, 0, -0.397404, -4.14346, 3.7, -52.5549 )
@@ -651,10 +680,15 @@ transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 10.7958
 transform = Transform( 0.995421, 0, -0.0955852, 0, 1, 0, 0.0955852, 0, 0.995421, -57.333, 0, -78.7795 )
 
 [node name="Statue2" parent="Level" instance=ExtResource( 23 )]
-transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0.096509, 0, 11.8776 )
+transform = Transform( -0.75, 0, -2.92061e-07, 0, 0.75, 0, 2.92061e-07, 0, -0.75, 0.096509, 0, 11.8776 )
 
 [node name="Fountain" parent="Level" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52588e-05, 0, -20 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Level"]
+transform = Transform( 12.9618, 0, 0, 0, 1, 0, 0, 0, 18.9073, -25.5806, -0.539463, 18.0737 )
+mesh = SubResource( 23 )
+material/0 = SubResource( 24 )
 
 [node name="Pistol" parent="." instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 195.653, 1.00828, 204.65 )
@@ -675,10 +709,10 @@ transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 200.991, 1.98304, 151.014 )
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 202.667, 1.98304, 151.014 )
 
 [node name="mad_piggy" parent="." instance=ExtResource( 25 )]
-transform = Transform( -0.0999918, 0, 0.00128451, 0, 0.1, 0, -0.00128451, 0, -0.0999918, 189.843, 0.342, 179.817 )
+transform = Transform( -0.0999918, 0, 0.00128451, 0, 0.1, 0, -0.00128451, 0, -0.0999918, 189.843, 0.156683, 179.817 )
 
 [node name="Spraycan" parent="." instance=ExtResource( 8 )]
-transform = Transform( 0.996221, 0.00562201, 0.0866793, -0.00345858, 0.999679, -0.025089, -0.0867925, 0.0246944, 0.99592, 200, 0.732, 185.357 )
+transform = Transform( 0.996221, 0.00562201, 0.0866793, -0.00345858, 0.999679, -0.025089, -0.0867925, 0.0246944, 0.99592, 200, 0.761607, 185.357 )
 color = "121113"
 
 [node name="Spraycan2" parent="." instance=ExtResource( 8 )]
@@ -712,3 +746,47 @@ color = "837569"
 [node name="Spraycan9" parent="." instance=ExtResource( 8 )]
 transform = Transform( 0.996221, 0.00562201, 0.0866793, -0.00345858, 0.999679, -0.025089, -0.0867925, 0.0246944, 0.99592, 164.659, 0.149361, 170.721 )
 color = "F2EFE9"
+
+[node name="StreetLight" parent="." instance=ExtResource( 26 )]
+transform = Transform( 38.3022, 0, -32.1394, 0, 50, 0, 32.1394, 0, 38.3022, 196.25, 0, 209.422 )
+
+[node name="StreetLight2" parent="." instance=ExtResource( 26 )]
+transform = Transform( 38.3022, 0, 32.1394, 0, 50, 0, -32.1394, 0, 38.3022, 204.001, 0, 209.422 )
+
+[node name="StreetLight4" parent="." instance=ExtResource( 26 )]
+transform = Transform( 38.3022, 0, -32.1394, 0, 50, 0, 32.1394, 0, 38.3022, 196.25, 0, 189.769 )
+
+[node name="StreetLight3" parent="." instance=ExtResource( 26 )]
+transform = Transform( 38.3022, 0, 32.1394, 0, 50, 0, -32.1394, 0, 38.3022, 204.001, 0, 189.769 )
+
+[node name="StreetLight8" parent="." instance=ExtResource( 26 )]
+transform = Transform( -38.2815, 0, 32.1641, 0, 50, 0, -32.1641, 0, -38.2815, 204.001, 0, 169.763 )
+
+[node name="StreetLight7" parent="." instance=ExtResource( 26 )]
+transform = Transform( -38.323, 0, -32.1147, 0, 50, 0, 32.1147, 0, -38.323, 196.25, 0, 169.758 )
+
+[node name="StreetLight10" parent="." instance=ExtResource( 26 )]
+transform = Transform( -46.0263, 0, 19.5341, 0, 50, 0, -19.5341, 0, -46.0263, 169.128, 0, 163.243 )
+
+[node name="StreetLight9" parent="." instance=ExtResource( 26 )]
+transform = Transform( 43.1869, 0, -25.197, 0, 50, 0, 25.197, 0, 43.1869, 158.711, 0, 166.014 )
+
+[node name="StreetLight11" parent="." instance=ExtResource( 26 )]
+transform = Transform( 17.174, 0, -46.958, 0, 50, 0, 46.958, 0, 17.174, 142.357, 0, 147.552 )
+
+[node name="StreetLight12" parent="." instance=ExtResource( 26 )]
+transform = Transform( -40.131, 0, -29.8246, 0, 50, 0, 29.8246, 0, -40.131, 135.008, 0, 113.189 )
+
+[node name="StreetLight13" parent="." instance=ExtResource( 26 )]
+transform = Transform( -49.4873, 0, 7.1418, 0, 50, 0, -7.1418, 0, -49.4873, 145.578, 0, 110.459 )
+
+[node name="StreetLight14" parent="." instance=ExtResource( 26 )]
+transform = Transform( 5.92192, 0, 49.6481, 0, 50, 0, -49.6481, 0, 5.92192, 153.035, 0, 122.417 )
+
+[node name="StreetLight6" parent="." instance=ExtResource( 26 )]
+transform = Transform( -44.3671, 0, -23.0557, 0, 50, 0, 23.0557, 0, -44.3671, 190.303, 0, 175.48 )
+
+[node name="StreetLight5" parent="." instance=ExtResource( 26 )]
+transform = Transform( 15.0012, 0, -47.6966, 0, 50, 0, 47.6966, 0, 15.0012, 190.185, 0, 183.86 )
+
+[node name="HTerrain" parent="." instance=ExtResource( 27 )]

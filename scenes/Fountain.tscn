@@ -4,18 +4,18 @@
 [ext_resource path="res://Assets/placeholder_water_mat.tres" type="Material" id=2]
 [ext_resource path="res://Assets/frame_mat.tres" type="Material" id=3]
 
-[sub_resource type="CylinderShape" id=5]
+[sub_resource type="CylinderShape" id=1]
 
-[sub_resource type="CylinderMesh" id=1]
+[sub_resource type="CylinderMesh" id=2]
 
-[sub_resource type="CylinderShape" id=2]
+[sub_resource type="CylinderShape" id=3]
 
-[sub_resource type="SphereMesh" id=3]
+[sub_resource type="SphereMesh" id=4]
 radius = 1.877
 height = 0.847
 is_hemisphere = true
 
-[sub_resource type="SphereShape" id=4]
+[sub_resource type="SphereShape" id=5]
 
 [node name="Fountain" type="CSGCombiner"]
 
@@ -27,41 +27,41 @@ material = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
 transform = Transform( 1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0 )
-shape = SubResource( 5 )
+shape = SubResource( 1 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
 transform = Transform( 0.35, 0, 0, 0, 3.25, 0, 0, 0, 0.35, 0, 3.25, 0 )
-mesh = SubResource( 1 )
+mesh = SubResource( 2 )
 material/0 = ExtResource( 1 )
 
 [node name="StaticBody" type="StaticBody" parent="MeshInstance2"]
 
 [node name="CollisionShape" type="CollisionShape" parent="MeshInstance2/StaticBody"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="MeshInstance4" type="MeshInstance" parent="."]
 transform = Transform( 0.8, 0, 0, 0, -0.75, -3.11531e-07, 0, 2.92061e-07, -0.8, 0, 7, 0 )
-mesh = SubResource( 3 )
+mesh = SubResource( 4 )
 material/0 = ExtResource( 3 )
 
 [node name="StaticBody" type="StaticBody" parent="MeshInstance4"]
 
 [node name="CollisionShape" type="CollisionShape" parent="MeshInstance4/StaticBody"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="MeshInstance5" type="MeshInstance" parent="."]
 transform = Transform( 1.5, 0, 0, 0, -1.25, -5.84122e-07, 0, 4.86768e-07, -1.5, 0, 5, 0 )
-mesh = SubResource( 3 )
+mesh = SubResource( 4 )
 material/0 = ExtResource( 3 )
 
 [node name="StaticBody" type="StaticBody" parent="MeshInstance5"]
 
 [node name="CollisionShape" type="CollisionShape" parent="MeshInstance5/StaticBody"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="CSGCombiner" type="CSGCombiner" parent="."]
 operation = 2
 
 [node name="CSGCylinder" type="CSGCylinder" parent="CSGCombiner"]
-transform = Transform( 5.25, 0, 0, 0, 0.45, 0, 0, 0, 5.25, 0, 0.546985, 0 )
+transform = Transform( 5.25, 0, 0, 0, 0.25, 0, 0, 0, 5.25, 0, 0.481101, 0 )
 material = ExtResource( 2 )

@@ -37,6 +37,7 @@ func spray():
 	# Paint decal
 	var decal = decal_projector.instance()
 	get_tree().get_root().add_child(decal)
+	decal.material_override.albedo_color = Color(color)
 	decal.global_transform = fire_point.global_transform
 	# Show spraybeam placeholder
 	if !particle.visible:
@@ -45,3 +46,38 @@ func spray():
 	controller.rumble = 0.05
 	if !spray_sound.is_playing():
 		spray_sound.play()
+
+
+func picked_up():
+	# Register color in menu UI
+	match color:
+		'F2EFE9':
+			change_can_color('Can')
+		'CC004E':
+			change_can_color('Can2')
+		'FF3F00':
+			change_can_color('Can3')
+		'FFD639':
+			change_can_color('Can4')
+		'00A7E1':
+			change_can_color('Can5')
+		'31081F':
+			change_can_color('Can6')
+		'00AF54':
+			change_can_color('Can7')
+		'837569':
+			change_can_color('Can8')
+		'121113':
+			change_can_color('Can9')
+
+
+# can == can name in menu hierarchy
+func change_can_color(can):
+	var new_can = get_parent().get_node("ARVROrigin/Player_Camera/Menu/CanGui/" + can + "/Highlight")
+	if !new_can.visible:
+		new_can.get_surface_material(0).albedo_color = color
+		new_can.visible = true
+		get_parent().get_node("ARVROrigin/Player_Camera/Menu/CanGui").visible = true
+		get_parent().get_node("ARVROrigin/Player_Camera/Menu/AudioStreamPlayer3D").play()
+		yield(get_tree().create_timer(3), "timeout")
+		get_parent().get_node("ARVROrigin/Player_Camera/Menu/CanGui").visible = false
