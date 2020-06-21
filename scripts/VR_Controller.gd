@@ -310,9 +310,14 @@ func open_options():
 
 func restart_game():
 	print("Restarting game...")
-	
+	var currentScene = get_tree().get_current_scene().get_filename()
+	get_tree().change_scene(currentScene)
+	#_ready()
+	#get_tree().get_current_scene().call("_ready")
+
 func quit_game():
 	print("Quitting game...")
+	get_tree().quit()
 
 # This function is called when the trigger button on the VR controller is pressed.
 func _on_button_pressed_trigger():

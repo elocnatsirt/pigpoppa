@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/Material.material" type="Material" id=1]
 [ext_resource path="res://scenes/mad_piggy.gd" type="Script" id=2]
 [ext_resource path="res://scenes/Sphere_Target.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/cerdo.png" type="Texture" id=4]
 [ext_resource path="res://scenes/Pig_Running.tres" type="Animation" id=5]
 [ext_resource path="res://scenes/Pig_Idle.tres" type="Animation" id=6]
+[ext_resource path="res://Assets/policehat.obj" type="ArrayMesh" id=7]
+[ext_resource path="res://Assets/star.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Sphere001"
@@ -54,9 +57,12 @@ bind/13/bone = 13
 bind/13/pose = Transform( 0.844624, -0.368018, -0.330127, -0.330127, -1.09706, -0.0287393, -0.30059, 0.170772, -0.896057, 0.0159171, -1.95326, -0.0308425 )
 
 [sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 0.8, 0, 0.305882, 1 )
+albedo_texture = ExtResource( 4 )
 
 [sub_resource type="CapsuleShape" id=4]
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0, 0.654902, 0.882353, 1 )
 
 [node name="mad_piggy" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54432, 0 )
@@ -153,3 +159,11 @@ anims/Pig_Running = ExtResource( 5 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 3, 0, 0, 0, -1.31134e-07, -3.5, 0, 3, -1.5299e-07, 0, 3.88412, 0 )
 shape = SubResource( 4 )
+
+[node name="Hat" type="MeshInstance" parent="."]
+transform = Transform( -0.01, 3.25841e-09, 5.30863e-16, 0, -1.62921e-09, 0.01, 3.25841e-09, 0.01, 1.62921e-09, 0, 7.86359, -0.869188 )
+mesh = ExtResource( 7 )
+material/0 = SubResource( 5 )
+
+[node name="star" parent="Hat" instance=ExtResource( 8 )]
+transform = Transform( -25.5834, 42.959, -5.12514e-06, 7.18906e-06, -1.68381e-06, -50, -42.959, -25.5834, -5.31519e-06, 2.681, -189.524, 156 )

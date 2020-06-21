@@ -56,9 +56,6 @@ func find_player():
 		if !cooldown:
 			if distance < 2:
 				attack_player()
-		else:
-			yield(get_tree().create_timer(1), "timeout")
-			cooldown = false
 
 var curr_pos
 

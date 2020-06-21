@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://scripts/InitVR.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Movement_Vignette.gd" type="Script" id=2]
@@ -27,6 +27,12 @@
 [ext_resource path="res://scenes/mad_piggy.tscn" type="PackedScene" id=25]
 [ext_resource path="res://Assets/StreetLight.fbx" type="PackedScene" id=26]
 [ext_resource path="res://scenes/test_terrain.tscn" type="PackedScene" id=27]
+[ext_resource path="res://addons/zylann.hterrain/hterrain_detail_layer.gd" type="Script" id=28]
+[ext_resource path="res://addons/zylann.hterrain/tools/icons/icon_detail_layer_node.svg" type="Texture" id=29]
+[ext_resource path="res://Assets/cloud1.tscn" type="PackedScene" id=30]
+[ext_resource path="res://Assets/LowPoly_Water.tscn" type="PackedScene" id=31]
+[ext_resource path="res://Assets/cloud2.tscn" type="PackedScene" id=32]
+[ext_resource path="res://Assets/cloud3.tscn" type="PackedScene" id=33]
 
 [sub_resource type="Environment" id=1]
 background_mode = 1
@@ -140,6 +146,7 @@ transform = Transform( 0.6497, 0, 0.760191, 0, 1, 0, -0.760191, 0, 0.6497, 202.4
 [node name="Player_Camera" type="ARVRCamera" parent="ARVROrigin"]
 transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 1.4, 0 )
 environment = SubResource( 1 )
+far = 200.0
 
 [node name="Menu" parent="ARVROrigin/Player_Camera" instance=ExtResource( 24 )]
 transform = Transform( 0.5, 1.19209e-07, -6.21725e-15, 0, -3.27835e-08, -0.5, -1.49012e-08, 0.75, -2.18557e-08, 0.0297254, -0.528468, -3.25781 )
@@ -687,8 +694,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52588e-05, 0, -20 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Level"]
 transform = Transform( 12.9618, 0, 0, 0, 1, 0, 0, 0, 18.9073, -25.5806, -0.539463, 18.0737 )
+visible = false
 mesh = SubResource( 23 )
 material/0 = SubResource( 24 )
+
+[node name="Water" parent="Level" instance=ExtResource( 31 )]
+transform = Transform( 0.254495, 0, 0, 0, 0.1, 0, 0, 0, 0.34175, -28.0813, -0.409854, 18.2037 )
 
 [node name="Pistol" parent="." instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 195.653, 1.00828, 204.65 )
@@ -790,3 +801,126 @@ transform = Transform( -44.3671, 0, -23.0557, 0, 50, 0, 23.0557, 0, -44.3671, 19
 transform = Transform( 15.0012, 0, -47.6966, 0, 50, 0, 47.6966, 0, 15.0012, 190.185, 0, 183.86 )
 
 [node name="HTerrain" parent="." instance=ExtResource( 27 )]
+
+[node name="HTerrainDetailLayer" type="Spatial" parent="HTerrain"]
+script = ExtResource( 28 )
+__meta__ = {
+"_editor_icon": ExtResource( 29 )
+}
+layer_index = 0
+texture = null
+view_distance = 100.0
+custom_shader = null
+density = 4.0
+instance_mesh = null
+shader_params/u_globalmap_tint_bottom = null
+shader_params/u_globalmap_tint_top = null
+shader_params/u_bottom_ao = null
+
+[node name="Cloud1" parent="." instance=ExtResource( 30 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 180.726, 24.6473, 182.591 )
+
+[node name="Cloud2" parent="." instance=ExtResource( 32 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 167.897, 20.7218, 197.976 )
+
+[node name="Cloud36" parent="." instance=ExtResource( 30 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 228.367, 24.3136, 120.6 )
+
+[node name="Cloud35" parent="." instance=ExtResource( 32 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 204.665, 17.8886, 133.593 )
+
+[node name="Cloud22" parent="." instance=ExtResource( 32 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 167.897, 19.2284, 122.546 )
+
+[node name="Cloud23" parent="." instance=ExtResource( 32 )]
+transform = Transform( 0.488195, 0, 0.872735, 0, 1, 0, -0.872735, 0, 0.488195, 189.24, 21.3555, 124.267 )
+
+[node name="Cloud3" parent="." instance=ExtResource( 33 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 200.814, 22.4062, 204.741 )
+
+[node name="Cloud34" parent="." instance=ExtResource( 33 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 237.582, 26.1772, 140.359 )
+
+[node name="Cloud6" parent="." instance=ExtResource( 30 )]
+transform = Transform( -0.135491, 0, 0.990779, 0, 1, 0, -0.990779, 0, -0.135491, 154.916, 25.2493, 170.985 )
+
+[node name="Cloud5" parent="." instance=ExtResource( 32 )]
+transform = Transform( -0.135491, 0, 0.990779, 0, 1, 0, -0.990779, 0, -0.135491, 171.897, 16.5118, 181.61 )
+
+[node name="Cloud4" parent="." instance=ExtResource( 33 )]
+transform = Transform( -0.135491, 0, 0.990779, 0, 1, 0, -0.990779, 0, -0.135491, 174.14, 22.4062, 148.08 )
+
+[node name="Cloud33" parent="." instance=ExtResource( 33 )]
+transform = Transform( -0.135491, 0, 0.990779, 0, 1, 0, -0.990779, 0, -0.135491, 227.557, 26.1772, 157.159 )
+
+[node name="Cloud9" parent="." instance=ExtResource( 30 )]
+transform = Transform( 0.708234, -0.206378, -0.675139, 0.035296, 0.965473, -0.258102, 0.705095, 0.158967, 0.691065, 214.722, 22.9678, 143.581 )
+
+[node name="Cloud8" parent="." instance=ExtResource( 32 )]
+transform = Transform( 0.708234, -0.206378, -0.675139, 0.035296, 0.965473, -0.258102, 0.705095, 0.158967, 0.691065, 196.576, 12.3411, 144.146 )
+
+[node name="Cloud32" parent="." instance=ExtResource( 32 )]
+transform = Transform( 0.708234, -0.206378, -0.675139, 0.035296, 0.965473, -0.258102, 0.705095, 0.158967, 0.691065, 151.273, 23.2664, 186.855 )
+
+[node name="Cloud7" parent="." instance=ExtResource( 33 )]
+transform = Transform( 0.708234, -0.206378, -0.675139, 0.035296, 0.965473, -0.258102, 0.705095, 0.158967, 0.691065, 213.61, 19.7591, 173.348 )
+
+[node name="Cloud12" parent="." instance=ExtResource( 30 )]
+transform = Transform( -0.585099, -0.18941, -0.788532, 0.035296, 0.965473, -0.258102, 0.810194, -0.178847, -0.558211, 233.422, 22.9678, 224.572 )
+
+[node name="Cloud31" parent="." instance=ExtResource( 30 )]
+transform = Transform( -0.585099, -0.18941, -0.788532, 0.035296, 0.965473, -0.258102, 0.810194, -0.178847, -0.558211, 234.439, 26.7388, 190.395 )
+
+[node name="Cloud11" parent="." instance=ExtResource( 32 )]
+transform = Transform( -0.585099, -0.18941, -0.788532, 0.035296, 0.965473, -0.258102, 0.810194, -0.178847, -0.558211, 230.013, 15.0266, 206.74 )
+
+[node name="Cloud10" parent="." instance=ExtResource( 33 )]
+transform = Transform( -0.585099, -0.18941, -0.788532, 0.035296, 0.965473, -0.258102, 0.810194, -0.178847, -0.558211, 203.849, 19.7591, 228.149 )
+
+[node name="Cloud15" parent="." instance=ExtResource( 30 )]
+transform = Transform( -0.723048, 0.68137, -0.113739, -0.678568, -0.669711, 0.301714, 0.129406, 0.295334, 0.94659, 177.192, 22.4359, 205.582 )
+
+[node name="Cloud30" parent="." instance=ExtResource( 33 )]
+transform = Transform( -0.585099, -0.18941, -0.788532, 0.035296, 0.965473, -0.258102, 0.810194, -0.178847, -0.558211, 240.617, 23.5301, 163.767 )
+
+[node name="Cloud29" parent="." instance=ExtResource( 30 )]
+transform = Transform( -0.723048, 0.68137, -0.113739, -0.678568, -0.669711, 0.301714, 0.129406, 0.295334, 0.94659, 213.96, 17.8996, 141.199 )
+
+[node name="Cloud14" parent="." instance=ExtResource( 32 )]
+transform = Transform( -0.723048, 0.68137, -0.113739, -0.678568, -0.669711, 0.301714, 0.129406, 0.295334, 0.94659, 180.34, 31.778, 216.587 )
+
+[node name="Cloud13" parent="." instance=ExtResource( 33 )]
+transform = Transform( -0.723048, 0.68137, -0.113739, -0.678568, -0.669711, 0.301714, 0.129406, 0.295334, 0.94659, 161.418, 5.93231, 229.699 )
+
+[node name="Cloud18" parent="." instance=ExtResource( 30 )]
+transform = Transform( -0.942434, -0.260209, 0.210023, 0.308338, -0.919276, 0.24466, 0.129406, 0.295334, 0.94659, 139.74, 23.7901, 94.4536 )
+
+[node name="Cloud28" parent="." instance=ExtResource( 33 )]
+transform = Transform( -0.723048, 0.68137, -0.113739, -0.678568, -0.669711, 0.301714, 0.129406, 0.295334, 0.94659, 198.186, 18.235, 165.316 )
+
+[node name="Cloud27" parent="." instance=ExtResource( 30 )]
+transform = Transform( -0.942434, -0.260209, 0.210023, 0.308338, -0.919276, 0.24466, 0.129406, 0.295334, 0.94659, 135.434, 27.5611, 111.551 )
+
+[node name="Cloud17" parent="." instance=ExtResource( 32 )]
+transform = Transform( -0.942434, -0.260209, 0.210023, 0.308338, -0.919276, 0.24466, 0.129406, 0.295334, 0.94659, 156.733, 29.5051, 105.459 )
+
+[node name="Cloud16" parent="." instance=ExtResource( 33 )]
+transform = Transform( -0.942434, -0.260209, 0.210023, 0.308338, -0.919276, 0.24466, 0.129406, 0.295334, 0.94659, 124.975, 33.6902, 118.571 )
+
+[node name="Cloud21" parent="." instance=ExtResource( 30 )]
+transform = Transform( 0.468221, 0.370539, 0.802166, 0.308338, -0.919276, 0.24466, 0.828068, 0.132783, -0.544676, 137.528, 23.7901, 154.904 )
+
+[node name="Cloud20" parent="." instance=ExtResource( 32 )]
+transform = Transform( 0.468221, 0.370539, 0.802166, 0.308338, -0.919276, 0.24466, 0.828068, 0.132783, -0.544676, 141.482, 29.5051, 135.048 )
+
+[node name="Cloud19" parent="." instance=ExtResource( 33 )]
+transform = Transform( 0.468221, 0.370539, 0.802166, 0.308338, -0.919276, 0.24466, 0.828068, 0.132783, -0.544676, 165.392, 33.6902, 159.721 )
+
+[node name="Cloud26" parent="." instance=ExtResource( 30 )]
+transform = Transform( 0.468221, 0.370539, 0.802166, 0.308338, -0.919276, 0.24466, 0.828068, 0.132783, -0.544676, 174.296, 27.5611, 90.5209 )
+
+[node name="Cloud25" parent="." instance=ExtResource( 32 )]
+transform = Transform( 0.468221, 0.370539, 0.802166, 0.308338, -0.919276, 0.24466, 0.828068, 0.132783, -0.544676, 171.578, 33.2761, 111.547 )
+
+[node name="Cloud24" parent="." instance=ExtResource( 33 )]
+transform = Transform( 0.468221, 0.370539, 0.802166, 0.308338, -0.919276, 0.24466, 0.828068, 0.132783, -0.544676, 155.527, 37.4611, 209.502 )
